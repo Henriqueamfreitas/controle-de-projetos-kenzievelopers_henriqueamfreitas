@@ -19,7 +19,20 @@ interface DeveloperInformation{
 type DeveloperInformationCreate = Omit<DeveloperInformation, 'id'>
 type DeveloperInformationResult = QueryResult<DeveloperInformation>
 
+interface DeveloperAndInformation{
+    developerId: number,
+    developerName: string,
+    developerEmail: string,
+    developerInfoDeveloperSince: Date,
+    developerInfoPreferredOS: 'Windows' | 'Linux' | 'MacOS',
+}
+
+type DeveloperAndInformationCreate = Omit<DeveloperAndInformation, 'id'>
+type DeveloperAndInformationResult = QueryResult<DeveloperAndInformation>
+
+
 export { 
     Developer, DeveloperCreate, DeveloperResult, 
-    DeveloperInformation, DeveloperInformationCreate, DeveloperInformationResult 
+    DeveloperInformation, DeveloperInformationCreate, DeveloperInformationResult,
+    DeveloperAndInformation, DeveloperAndInformationCreate, DeveloperAndInformationResult 
 }

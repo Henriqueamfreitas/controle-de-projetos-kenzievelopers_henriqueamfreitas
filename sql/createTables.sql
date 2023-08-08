@@ -43,9 +43,12 @@
 
     SELECT * FROM projects; 
 
-    SELECT  FROM developers d
-    JOIN developerInfos dI
-    ON dI.developerId = d.id;
+    SELECT d.id "developerId", d.name "developerName", d.email "developerEmail", 
+    dI."developerSince" "developerInfoDeveloperSince", dI."preferredOS" "developerInfoPreferredOS"
+    FROM developers d
+    LEFT JOIN developerInfos dI
+    ON dI."developerId" = d.id
+    WHERE "developerId"=1;
 
     SELECT * FROM developers d
     JOIN projects p

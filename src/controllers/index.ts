@@ -1,5 +1,5 @@
 import { Request, Response } from "express"
-import { exemplo1Service, exemplo2Service, exemplo3Service, exemplo4Service } from "../services/exemplo.service"
+import { exemplo1Service, exemplo2Service, exemplo3Service, exemplo4Service, exemplo5Service } from "../services/exemplo.service"
 import { DeveloperCreate, DeveloperInformationCreate } from "../interfaces/interfaces"
 
 const insertDeveloper = async (req: Request, res: Response): Promise<Response> => {
@@ -34,6 +34,15 @@ const insertDeveloperInformation = async (req: Request, res: Response): Promise<
     return res.status(201).json(developerInformation)
 }
 
+const getDeveloper = async (req: Request, res: Response): Promise<Response> => {
+    const payload:Request = req
+    
+    const selectedDeveloper = await exemplo5Service(payload)
+    
+    return res.status(200).json(selectedDeveloper)
+}
 
 
-export { insertDeveloper, updatedDeveloper, deleteDeveloper, insertDeveloperInformation }
+
+
+export { insertDeveloper, updatedDeveloper, deleteDeveloper, insertDeveloperInformation, getDeveloper }
