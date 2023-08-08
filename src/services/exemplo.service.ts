@@ -2,7 +2,8 @@ import { QueryConfig } from "pg"
 import { client } from "../database"
 import { 
     Developer, DeveloperResult, DeveloperInformation, DeveloperInformationResult,
-    DeveloperAndInformation, DeveloperAndInformationCreate, DeveloperAndInformationResult 
+    DeveloperAndInformation, DeveloperAndInformationCreate, DeveloperAndInformationResult,
+    Project, ProjectCreate, ProjectResult 
 } from "../interfaces/interfaces"
 import format from "pg-format"
 
@@ -110,5 +111,39 @@ const exemplo5Service = async (payload: any) =>  {
     return selectedDeveloper
 }
 
+const exemplo6Service = async (payload: any) => {
+    if(payload.endDate === undefined){
+        const queryString = `
+            INSERT INTO projects (name, description, repository, "startDate", "developerId")
+            VALUES ($1, $2, $3, $4, $5)
+            RETURNING *;
+        `
+        const queryConfig: QueryConfig = {
+            text: queryString,
+            values: Object.values(payload),
+        }
+    
+        const queryResult: ProjectResult = await client.query(queryConfig)
+    
+        return queryResult.rows[0]   
+    } else{
+        const queryString =`
+            INSERT INTO projects (name, description, repository, "startDate", "endDate", "developerId")
+            VALUES ($1, $2, $3, $4, $5, $6)
+            RETURNING *;
+        `
+        const queryConfig: QueryConfig = {
+            text: queryString,
+            values: Object.values(payload),
+        }
 
-export { exemplo1Service, exemplo2Service, exemplo3Service, exemplo4Service, exemplo5Service }
+        const queryResult: ProjectResult = await client.query(queryConfig)
+
+        return queryResult.rows[0]
+    }
+}
+
+export { 
+        exemplo1Service, exemplo2Service, exemplo3Service, exemplo4Service, exemplo5Service,
+        exemplo6Service 
+}

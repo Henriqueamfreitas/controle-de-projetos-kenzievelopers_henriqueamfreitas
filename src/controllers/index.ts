@@ -1,6 +1,9 @@
 import { Request, Response } from "express"
-import { exemplo1Service, exemplo2Service, exemplo3Service, exemplo4Service, exemplo5Service } from "../services/exemplo.service"
-import { DeveloperCreate, DeveloperInformationCreate } from "../interfaces/interfaces"
+import { 
+        exemplo1Service, exemplo2Service, exemplo3Service, exemplo4Service, exemplo5Service,
+        exemplo6Service 
+} from "../services/exemplo.service"
+import { DeveloperCreate, DeveloperInformationCreate, ProjectCreate } from "../interfaces/interfaces"
 
 const insertDeveloper = async (req: Request, res: Response): Promise<Response> => {
     const payload:DeveloperCreate = req.body
@@ -42,7 +45,16 @@ const getDeveloper = async (req: Request, res: Response): Promise<Response> => {
     return res.status(200).json(selectedDeveloper)
 }
 
+const insertProject = async (req: Request, res: Response): Promise<Response> => {
+    const payload:ProjectCreate = req.body
+    
+    const project = await exemplo6Service(payload)
+
+    return res.status(201).json(project)
+}
 
 
-
-export { insertDeveloper, updatedDeveloper, deleteDeveloper, insertDeveloperInformation, getDeveloper }
+export { 
+        insertDeveloper, updatedDeveloper, deleteDeveloper, insertDeveloperInformation, getDeveloper,
+        insertProject 
+}

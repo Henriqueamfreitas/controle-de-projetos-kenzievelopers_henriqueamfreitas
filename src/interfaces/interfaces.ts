@@ -30,9 +30,22 @@ interface DeveloperAndInformation{
 type DeveloperAndInformationCreate = Omit<DeveloperAndInformation, 'id'>
 type DeveloperAndInformationResult = QueryResult<DeveloperAndInformation>
 
+interface Project{
+    id: number,
+    name: string,
+    description: string,
+    repository: string,
+    startDate: Date,
+    endDate: Date|null,
+    developerId: number,
+}
+
+type ProjectCreate = Omit<Project, 'id'>
+type ProjectResult = QueryResult<Project>
 
 export { 
     Developer, DeveloperCreate, DeveloperResult, 
     DeveloperInformation, DeveloperInformationCreate, DeveloperInformationResult,
-    DeveloperAndInformation, DeveloperAndInformationCreate, DeveloperAndInformationResult 
+    DeveloperAndInformation, DeveloperAndInformationCreate, DeveloperAndInformationResult,
+    Project, ProjectCreate, ProjectResult 
 }

@@ -33,8 +33,8 @@
     INSERT INTO developerInfos ("developerSince", "preferredOS", "developerId")
     VALUES ('2023-01-02', 'Linux', 2);
 
-    INSERT INTO projects (name, description, repository, startDate, developerId)
-    VALUES ('Project 1', 'Projeto backend1', '1url.com.br', '2022-12-01', 2);
+    INSERT INTO projects (name, description, repository, "startDate", "endDate", "developerId")
+    VALUES ('Project 1', 'Projeto backend1', '1url.com.br', '2022-12-01', '2023-12-01', 2);
 
 -- Getting the values from the tables
     SELECT * FROM developers; 
