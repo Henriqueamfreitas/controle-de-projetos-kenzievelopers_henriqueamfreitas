@@ -60,3 +60,34 @@
 //     }
 
 // export { idExists, emailExists }
+
+import { NextFunction, Request, Response, request } from "express"
+import { QueryConfig } from "pg"
+import { Developer, DeveloperCreate, DeveloperResult } from "../interfaces/interfaces"
+import { client } from "../database"
+import { AppError } from "../errors/error"
+
+const ensureNoDuplicatesMiddleWare = async (request: Request, response: Response, next: NextFunction) => {
+    const queryString: string = `
+        SELECT * FROM developers;
+    `
+    
+    const queryConfig: QueryConfig = {
+        text: queryString,
+    }
+    
+    const queryResult: DeveloperResult = await client.query(queryConfig)
+    const developers: Developer[] = queryResult.rows
+
+    const devsWithSameEmail: number|undefined = developers.findIndex(element => element.email === request.body.email)
+
+    if((devsWithSameEmail !== -1) && (developers.length>0)){
+        throw new AppError("Email already exists.", 409)
+    }
+
+    response.locals.devsWithSameEmail = devsWithSameEmail
+
+    return next()
+}
+
+export { ensureNoDuplicatesMiddleWare }

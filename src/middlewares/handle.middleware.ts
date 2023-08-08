@@ -1,4 +1,4 @@
-import "express-async-erros"
+import 'express-async-errors';
 import { NextFunction, Request, Response } from "express";
 import { AppError } from "../errors/error";
 
