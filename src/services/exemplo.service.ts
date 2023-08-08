@@ -1,7 +1,7 @@
 import { QueryConfig } from "pg"
 import { client } from "../database"
 import { Developer, DeveloperResult } from "../interfaces/interfaces"
-
+import format from "pg-format"
 
 const exemplo1Service = async (payload: any) => {
     
@@ -17,9 +17,37 @@ const exemplo1Service = async (payload: any) => {
     }
 
     const queryResult: DeveloperResult = await client.query(queryConfig)
-    const product: Developer = queryResult.rows[0]
 
     return queryResult.rows[0]
 }
 
-export { exemplo1Service }
+const exemplo2Service = async (payload: any) => {
+        const { body, params } = payload
+    
+        const updateColumns:string[] = Object.keys(body)
+        const updateValues:string[] = Object.values(body)
+    
+        const queryTemplate: string = `
+            UPDATE "developers"
+            SET (%I) = ROW (%L)
+            WHERE id = $1
+            RETURNING *;
+        `
+    
+        const queryFormat: string = format(
+            queryTemplate,
+            updateColumns,
+            updateValues
+        )
+    
+        const queryConfig: QueryConfig = {
+            text: queryFormat,
+            values: [params.id]
+        }
+        
+        const queryResult: DeveloperResult = await client.query(queryConfig)
+        const updatedDeveloper: Developer = queryResult.rows[0]
+        return updatedDeveloper
+}
+
+export { exemplo1Service, exemplo2Service }

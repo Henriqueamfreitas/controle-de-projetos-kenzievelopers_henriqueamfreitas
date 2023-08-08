@@ -1,5 +1,5 @@
 import { Request, Response } from "express"
-import { exemplo1Service } from "../services/exemplo.service"
+import { exemplo1Service, exemplo2Service } from "../services/exemplo.service"
 import { DeveloperCreate } from "../interfaces/interfaces"
 
 const insertDeveloper = async (req: Request, res: Response): Promise<Response> => {
@@ -10,4 +10,12 @@ const insertDeveloper = async (req: Request, res: Response): Promise<Response> =
     return res.status(201).json(developer)
 }
 
-export { insertDeveloper }
+const updatedDeveloper = async (req: Request, res: Response): Promise<Response> => {
+    const payload:Request = req
+    
+    const updatedDeveloper = await exemplo2Service(payload)
+    
+    return res.status(200).json(updatedDeveloper)
+}
+
+export { insertDeveloper, updatedDeveloper }
