@@ -50,4 +50,22 @@ const exemplo2Service = async (payload: any) => {
         return updatedDeveloper
 }
 
-export { exemplo1Service, exemplo2Service }
+const exemplo3Service = async (payload: any) =>  {    
+    const { params } = payload
+
+    const queryString: string = `
+        DELETE FROM developers
+        WHERE id = $1;    
+    `
+
+    const queryConfig: QueryConfig = {
+        text: queryString,
+        values: [params.id]
+    } 
+
+    await client.query(queryConfig)
+}
+
+
+
+export { exemplo1Service, exemplo2Service, exemplo3Service }
