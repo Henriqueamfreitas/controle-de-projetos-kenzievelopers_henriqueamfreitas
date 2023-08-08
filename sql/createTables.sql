@@ -9,10 +9,10 @@
 
     CREATE TABLE IF NOT EXISTS developerInfos (
         id SERIAL PRIMARY KEY,
-        developerSince DATE NOT NULL,
-        preferredOS OS NOT NULL UNIQUE,    
-        developerId INTEGER UNIQUE NOT NULL,
-        FOREIGN KEY (developerId) REFERENCES developers(id) ON DELETE CASCADE
+        "developerSince" DATE NOT NULL,
+        "preferredOS" OS NOT NULL,    
+        "developerId" INTEGER UNIQUE NOT NULL,
+        FOREIGN KEY ("developerId") REFERENCES developers(id) ON DELETE CASCADE
     );
 
     CREATE TABLE IF NOT EXISTS projects (
@@ -20,17 +20,17 @@
         name VARCHAR(50) NOT NULL,
         description TEXT,
         repository VARCHAR(120) NOT NULL,
-        startDate DATE NOT NULL,
-        endDate DATE,
-        developerId INTEGER,
-        FOREIGN KEY (developerId) REFERENCES developers(id) ON DELETE SET NULL
+        "startDate" DATE NOT NULL,
+        "endDate" DATE,
+        "developerId" INTEGER,
+        FOREIGN KEY ("developerId") REFERENCES developers(id) ON DELETE SET NULL
     );
 
 -- Inserting test data into the tables
     INSERT INTO developers (name, email)
     VALUES ('teste2', 'teste2@kenzie.com.br');
 
-    INSERT INTO developerInfos (developerSince, preferredOS, developerId)
+    INSERT INTO developerInfos ("developerSince", "preferredOS", "developerId")
     VALUES ('2023-01-02', 'Linux', 2);
 
     INSERT INTO projects (name, description, repository, startDate, developerId)
@@ -43,7 +43,7 @@
 
     SELECT * FROM projects; 
 
-    SELECT * FROM developers d
+    SELECT  FROM developers d
     JOIN developerInfos dI
     ON dI.developerId = d.id;
 
@@ -64,10 +64,10 @@
 
     CREATE TABLE IF NOT EXISTS developerInfos (
         id SERIAL PRIMARY KEY,
-        developerSince DATE NOT NULL,
-        preferredOS OS NOT NULL UNIQUE,    
-        developerId INTEGER UNIQUE NOT NULL,
-        FOREIGN KEY (developerId) REFERENCES developers(id) ON DELETE CASCADE
+        "developerSince" DATE NOT NULL,
+        "preferredOS" OS NOT NULL,    
+        "developerId" INTEGER UNIQUE NOT NULL,
+        FOREIGN KEY ("developerId") REFERENCES developers(id) ON DELETE CASCADE
     );
 
     CREATE TABLE IF NOT EXISTS projects (
@@ -75,11 +75,8 @@
         name VARCHAR(50) NOT NULL,
         description TEXT,
         repository VARCHAR(120) NOT NULL,
-        startDate DATE NOT NULL,
-        endDate DATE,
-        developerId INTEGER,
-        FOREIGN KEY (developerId) REFERENCES developers(id) ON DELETE SET NULL
+        "startDate" DATE NOT NULL,
+        "endDate" DATE,
+        "developerId" INTEGER,
+        FOREIGN KEY ("developerId") REFERENCES developers(id) ON DELETE SET NULL
     );
-
-
-

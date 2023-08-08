@@ -1,6 +1,6 @@
 import { QueryConfig } from "pg"
 import { client } from "../database"
-import { Developer, DeveloperResult } from "../interfaces/interfaces"
+import { Developer, DeveloperResult, DeveloperInformation, DeveloperInformationResult } from "../interfaces/interfaces"
 import format from "pg-format"
 
 const exemplo1Service = async (payload: any) => {
@@ -66,6 +66,23 @@ const exemplo3Service = async (payload: any) =>  {
     await client.query(queryConfig)
 }
 
+const exemplo4Service = async (payload: any) =>  {
+    const { body, params } = payload
 
+    const queryString: string = `
+    INSERT INTO developerInfos ("developerSince", "preferredOS", "developerId")
+    VALUES ($1, $2, ${params.id})
+    RETURNING *;
+    `
 
-export { exemplo1Service, exemplo2Service, exemplo3Service }
+    const queryConfig: QueryConfig = {
+        text: queryString,
+        values: Object.values(body),
+    }
+
+    const queryResult: DeveloperInformationResult = await client.query(queryConfig)
+
+    return queryResult.rows[0]
+}
+
+export { exemplo1Service, exemplo2Service, exemplo3Service, exemplo4Service }

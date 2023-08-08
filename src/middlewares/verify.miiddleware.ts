@@ -1,69 +1,6 @@
-// import { NextFunction, Request, Response } from "express";
-// import format from "pg-format";
-
-// import { pgClient } from "../database"
-// import { QueryResult } from "pg";
-// import { tUser, tUserResult } from "../interfaces"
-// import { AppError } from "../errors/error";
-
-// type tGenericEntity = Object
-// type tGenericEntityResult = QueryResult<tGenericEntity>
-
-// const idExists =
-//     (tableName: string) =>
-//     async (
-//         req: Request,
-//         res: Response,
-//         next: NextFunction
-//     ): Promise<Response | void> => {
-//             const id: string = req.params.id
-
-//             const queryTemplate: string = `
-//                 SELECT * FROM %I WHERE id = %L
-//             `
-//             const queryFormat: string = format(queryTemplate, tableName, id)
-//             const queryResult: tGenericEntityResult = await pgClient.query(
-//                 queryFormat
-//             )
-//             const foundEntity: tGenericEntity = queryResult.rows[0]
-
-//             if(foundEntity = undefined){
-//                 throw new AppError("Entity not found", 404)
-//             }
-//             res.locals.foundEntity = foundEntity
-
-//             return next()
-//     }
-
-// const emailExists = async (
-//     req: Request,
-//     res: Response,
-//     next: NextFunction
-//     ): Promise<Response | void> => {
-//             const { email }: { email: string } = req.body
-
-//             if(email=undefined) return next()
-//             const queryTemplate: string = `
-//             SELECT * FROM "users" WHERE email = %L
-//             `
-//             const queryFormat: string = format(queryTemplate, email)
-//             const queryResult: tUserResult = await pgClient.query(
-//                 queryFormat
-//             )
-//             const foundUser: tUser = queryResult.rows[0]
-
-//             if(foundUser !== undefined){
-//                 throw new AppError("Email already exists")
-//             }
-
-//             return next()
-//     }
-
-// export { idExists, emailExists }
-
 import { NextFunction, Request, Response, request } from "express"
 import { QueryConfig } from "pg"
-import { Developer, DeveloperCreate, DeveloperResult } from "../interfaces/interfaces"
+import { Developer, DeveloperCreate, DeveloperResult, DeveloperInformation, DeveloperInformationCreate, DeveloperInformationResult } from "../interfaces/interfaces"
 import { client } from "../database"
 import { AppError } from "../errors/error"
 import format from "pg-format";
@@ -117,4 +54,40 @@ const ensureIdExistsMiddleWare = async (
     return next()
 }
 
-export { ensureNoDuplicatesMiddleWare, ensureIdExistsMiddleWare }
+const ensureNoInformationDuplicates = async (
+    req: Request, res: Response, next: NextFunction): Promise<Response | void>  => {
+    const id: string = req.params.id
+    const queryString: string = `
+        SELECT * FROM developerInfos;
+    `
+    
+    const queryConfig: QueryConfig = {
+        text: queryString,
+    }
+    
+    const queryResult: DeveloperInformationResult = await client.query(queryConfig)
+    const devInformations: DeveloperInformation[] = queryResult.rows
+
+    const thisIdExists: number= devInformations.findIndex(element => element.developerId === Number(id))
+
+    if((thisIdExists !== -1) && (devInformations.length>0)){
+        throw new AppError("Developer infos already exists.", 409)
+    }
+
+    res.locals.thisIdExists = thisIdExists
+
+    return next()
+}
+
+const ensureValidOs = async (
+    req: Request, res: Response, next: NextFunction): Promise<Response | void>  => {
+    const preferredOS: string = req.body.preferredOS
+
+    if(preferredOS !== 'MacOS' && preferredOS !== 'Windows' && preferredOS !== 'Linux'){
+        throw new AppError("Invalid OS option.", 400)
+    }
+
+    return next()
+}
+
+export { ensureNoDuplicatesMiddleWare, ensureIdExistsMiddleWare, ensureNoInformationDuplicates, ensureValidOs }

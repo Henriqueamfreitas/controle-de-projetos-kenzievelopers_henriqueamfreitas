@@ -1,6 +1,6 @@
 import { Request, Response } from "express"
-import { exemplo1Service, exemplo2Service, exemplo3Service } from "../services/exemplo.service"
-import { DeveloperCreate } from "../interfaces/interfaces"
+import { exemplo1Service, exemplo2Service, exemplo3Service, exemplo4Service } from "../services/exemplo.service"
+import { DeveloperCreate, DeveloperInformationCreate } from "../interfaces/interfaces"
 
 const insertDeveloper = async (req: Request, res: Response): Promise<Response> => {
     const payload:DeveloperCreate = req.body
@@ -26,4 +26,14 @@ const deleteDeveloper = async (req: Request, res: Response): Promise<Response> =
     return res.status(204).send()
 }
 
-export { insertDeveloper, updatedDeveloper, deleteDeveloper }
+const insertDeveloperInformation = async (req: Request, res: Response): Promise<Response> => {
+    const payload:Request = req
+    
+    const developerInformation = await exemplo4Service(payload)
+
+    return res.status(201).json(developerInformation)
+}
+
+
+
+export { insertDeveloper, updatedDeveloper, deleteDeveloper, insertDeveloperInformation }
