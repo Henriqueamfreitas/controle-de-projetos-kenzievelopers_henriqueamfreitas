@@ -4,16 +4,17 @@ import { ensureNoDuplicatesMiddleWare, ensureIdExistsMiddleWare, ensureNoInforma
         ensureValidOs 
 } from "../middlewares/verify.miiddleware";
 import { 
-        insertDeveloper, updatedDeveloper, deleteDeveloper, insertDeveloperInformation, getDeveloper,
-} from "../controllers/index"
+        createDeveloperController, updateDeveloperController, deleteDeveloperController,
+        insertDeveloperInfoController, getDeveloperController 
+} from "../controllers/developer.controllers";
 
 const developerRouter: Router = Router()
 
-developerRouter.post('/', ensureNoDuplicatesMiddleWare, insertDeveloper)
-developerRouter.patch('/:id', ensureIdExistsMiddleWare, ensureNoDuplicatesMiddleWare, updatedDeveloper)
-developerRouter.delete('/:id', ensureIdExistsMiddleWare, deleteDeveloper)
+developerRouter.post('/', ensureNoDuplicatesMiddleWare, createDeveloperController)
+developerRouter.patch('/:id', ensureIdExistsMiddleWare, ensureNoDuplicatesMiddleWare, updateDeveloperController)
+developerRouter.delete('/:id', ensureIdExistsMiddleWare, deleteDeveloperController)
 developerRouter.post('/:id/infos', ensureValidOs, ensureIdExistsMiddleWare, ensureNoInformationDuplicates, 
-insertDeveloperInformation)
-developerRouter.get('/:id', ensureIdExistsMiddleWare, getDeveloper)
+insertDeveloperInfoController)
+developerRouter.get('/:id', ensureIdExistsMiddleWare, getDeveloperController)
 
 export { developerRouter }

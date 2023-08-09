@@ -1,79 +1,79 @@
-import { Request, Response } from "express"
-import { createDeveloperService, updateDeveloperService, deleteDeveloperService, 
-    createDeveloperInfoService, getDeveloperService 
-} from "../services/developer.services" 
-import { createProjectService, getProjectService, updateProjectService } from "../services/projects.services"
-import { DeveloperCreateInterface } from "../interfaces/developer.interfaces"
-import { 
-    ProjectInterface, ProjectCreateInterface, ProjectResultInterface,
-    DeveloperAndProjectInterface, DeveloperAndProjectCreateInterface, DeveloperAndProjectResultInterface 
-} from "../interfaces/projects.interfaces"
+// import { Request, Response } from "express"
+// import { createDeveloperService, updateDeveloperService, deleteDeveloperService, 
+//     createDeveloperInfoService, getDeveloperService 
+// } from "../services/developer.services" 
+// import { createProjectService, getProjectService, updateProjectService } from "../services/projects.services"
+// import { DeveloperCreateInterface } from "../interfaces/developer.interfaces"
+// import { 
+//     ProjectInterface, ProjectCreateInterface, ProjectResultInterface,
+//     DeveloperAndProjectInterface, DeveloperAndProjectCreateInterface, DeveloperAndProjectResultInterface 
+// } from "../interfaces/projects.interfaces"
 
-const insertDeveloper = async (req: Request, res: Response): Promise<Response> => {
-    const payload:DeveloperCreateInterface = req.body
+// const insertDeveloper = async (req: Request, res: Response): Promise<Response> => {
+//     const payload:DeveloperCreateInterface = req.body
     
-    const developer = await createDeveloperService(payload)
+//     const developer = await createDeveloperService(payload)
 
-    return res.status(201).json(developer)
-}
+//     return res.status(201).json(developer)
+// }
 
-const updatedDeveloper = async (req: Request, res: Response): Promise<Response> => {
-    const payload:Request = req
+// const updatedDeveloper = async (req: Request, res: Response): Promise<Response> => {
+//     const payload:Request = req
     
-    const updatedDeveloper = await updateDeveloperService(payload)
+//     const updatedDeveloper = await updateDeveloperService(payload)
     
-    return res.status(200).json(updatedDeveloper)
-}
+//     return res.status(200).json(updatedDeveloper)
+// }
 
-const deleteDeveloper = async (req: Request, res: Response): Promise<Response> => {
-    const payload:Request = req
+// const deleteDeveloper = async (req: Request, res: Response): Promise<Response> => {
+//     const payload:Request = req
     
-    await deleteDeveloperService(payload)
+//     await deleteDeveloperService(payload)
     
-    return res.status(404).send()
-}
+//     return res.status(404).send()
+// }
 
-const insertDeveloperInformation = async (req: Request, res: Response): Promise<Response> => {
-    const payload:Request = req
+// const insertDeveloperInformation = async (req: Request, res: Response): Promise<Response> => {
+//     const payload:Request = req
     
-    const developerInformation = await createDeveloperInfoService(payload)
+//     const developerInformation = await createDeveloperInfoService(payload)
 
-    return res.status(201).json(developerInformation)
-}
+//     return res.status(201).json(developerInformation)
+// }
 
-const getDeveloper = async (req: Request, res: Response): Promise<Response> => {
-    const payload:Request = req
+// const getDeveloper = async (req: Request, res: Response): Promise<Response> => {
+//     const payload:Request = req
     
-    const selectedDeveloper = await getDeveloperService(payload)
+//     const selectedDeveloper = await getDeveloperService(payload)
     
-    return res.status(200).json(selectedDeveloper)
-}
+//     return res.status(200).json(selectedDeveloper)
+// }
 
-const insertProject = async (req: Request, res: Response): Promise<Response> => {
-    const payload:ProjectCreateInterface = req.body
+// const insertProject = async (req: Request, res: Response): Promise<Response> => {
+//     const payload:ProjectCreateInterface = req.body
     
-    const project = await createProjectService(payload)
+//     const project = await createProjectService(payload)
 
-    return res.status(201).json(project)
-}
+//     return res.status(201).json(project)
+// }
 
-const getProject = async (req: Request, res: Response): Promise<Response> => {
-    const payload:Request = req
+// const getProject = async (req: Request, res: Response): Promise<Response> => {
+//     const payload:Request = req
     
-    const selectedProject = await getProjectService(payload)
+//     const selectedProject = await getProjectService(payload)
     
-    return res.status(200).json(selectedProject)
-}
+//     return res.status(200).json(selectedProject)
+// }
 
-const updatedProject = async (req: Request, res: Response): Promise<Response> => {
-    const payload:Request = req
+// const updatedProject = async (req: Request, res: Response): Promise<Response> => {
+//     const payload:Request = req
     
-    const updatedProject = await updateProjectService(payload)
+//     const updatedProject = await updateProjectService(payload)
     
-    return res.status(200).json(updatedProject)
-}
+//     return res.status(200).json(updatedProject)
+// }
 
-export { 
-        insertDeveloper, updatedDeveloper, deleteDeveloper, insertDeveloperInformation, getDeveloper,
-        insertProject, getProject, updatedProject 
-}
+// export { 
+//         insertDeveloper, updatedDeveloper, deleteDeveloper, insertDeveloperInformation, getDeveloper,
+//         insertProject, getProject, updatedProject 
+// }

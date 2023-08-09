@@ -2,12 +2,14 @@ import express, { Application, Router, json } from "express";
 import "dotenv/config";
 import { ensureDeveloperIdExistsMiddleWare, ensureProjectIdExistsMiddleWare 
 } from "../middlewares/verify.miiddleware";
-import { insertProject, getProject, updatedProject } from "../controllers/index"
+import { createProjectController, getProjectController, updateProjectController 
+} from "../controllers/projects.controllers";
 
 const projectsRouter: Router = Router()
 
-projectsRouter.post('/', ensureDeveloperIdExistsMiddleWare, insertProject)
-projectsRouter.get('/:id', ensureProjectIdExistsMiddleWare, getProject)
-projectsRouter.patch('/:id', ensureProjectIdExistsMiddleWare, ensureDeveloperIdExistsMiddleWare, updatedProject)
+projectsRouter.post('/', ensureDeveloperIdExistsMiddleWare, createProjectController)
+projectsRouter.get('/:id', ensureProjectIdExistsMiddleWare, getProjectController)
+projectsRouter.patch('/:id', ensureProjectIdExistsMiddleWare, ensureDeveloperIdExistsMiddleWare, 
+updateProjectController)
 
 export { projectsRouter }
