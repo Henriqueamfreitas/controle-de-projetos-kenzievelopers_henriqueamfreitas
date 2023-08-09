@@ -20,7 +20,7 @@ const exemploRouter7: Router = Router()
 const exemploRouter8: Router = Router()
 
 exemploRouter1.post('/', ensureNoDuplicatesMiddleWare, insertDeveloper)
-exemploRouter2.patch('/:id', ensureNoDuplicatesMiddleWare, ensureIdExistsMiddleWare, updatedDeveloper)
+exemploRouter2.patch('/:id', ensureIdExistsMiddleWare, ensureNoDuplicatesMiddleWare, updatedDeveloper)
 exemploRouter3.delete('/:id', ensureIdExistsMiddleWare, deleteDeveloper)
 exemploRouter4.post('/:id/infos', ensureValidOs, ensureIdExistsMiddleWare, ensureNoInformationDuplicates, 
 insertDeveloperInformation)

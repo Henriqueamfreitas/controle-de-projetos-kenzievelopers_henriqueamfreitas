@@ -26,7 +26,7 @@ const deleteDeveloper = async (req: Request, res: Response): Promise<Response> =
     
     await exemplo3Service(payload)
     
-    return res.status(204).send()
+    return res.status(404).send()
 }
 
 const insertDeveloperInformation = async (req: Request, res: Response): Promise<Response> => {
