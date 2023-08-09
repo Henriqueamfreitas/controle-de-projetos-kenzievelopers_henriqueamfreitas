@@ -1,6 +1,5 @@
 import { NextFunction, Request, Response, request } from "express"
 import { QueryConfig } from "pg"
-import { ProjectResult, Project } from "../interfaces/interfaces"
 import { client } from "../database"
 import { AppError } from "../errors/error"
 import format from "pg-format";
@@ -10,6 +9,10 @@ import {
         DeveloperAndInformationInterface, DeveloperAndInformationCreateInterface, 
         DeveloperAndInformationResultInterface 
 } from "../interfaces/developer.interfaces"
+import { 
+        ProjectInterface, ProjectCreateInterface, ProjectResultInterface,
+        DeveloperAndProjectInterface, DeveloperAndProjectCreateInterface, DeveloperAndProjectResultInterface 
+} from "../interfaces/projects.interfaces";
 
 const ensureNoDuplicatesMiddleWare = async (
     req: Request, res: Response, next: NextFunction): Promise<Response | void>  => {
@@ -132,8 +135,8 @@ const ensureProjectIdExistsMiddleWare = async (
         text: queryString,
     }
     
-    const queryResult: ProjectResult = await client.query(queryConfig)
-    const projects: Project[] = queryResult.rows
+    const queryResult: ProjectResultInterface = await client.query(queryConfig)
+    const projects: ProjectInterface[] = queryResult.rows
 
     const thisIdExists: number = projects.findIndex(element => element.id === Number(id))
 

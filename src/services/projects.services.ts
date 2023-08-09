@@ -1,10 +1,9 @@
 import { QueryConfig } from "pg"
 import { client } from "../database"
-import { 
-    Project, ProjectCreate, ProjectResult, DeveloperAndProject, DeveloperAndProjectCreate,
-    DeveloperAndProjectResult
-} from "../interfaces/interfaces"
 import format from "pg-format"
+import { ProjectInterface, ProjectCreateInterface, ProjectResultInterface,
+    DeveloperAndProjectInterface, DeveloperAndProjectCreateInterface, DeveloperAndProjectResultInterface 
+} from "../interfaces/projects.interfaces"
 
 const createProjectService = async (payload: any) => {
     if(payload.endDate === undefined){
@@ -18,7 +17,7 @@ const createProjectService = async (payload: any) => {
             values: Object.values(payload),
         }
     
-        const queryResult: ProjectResult = await client.query(queryConfig)
+        const queryResult: ProjectResultInterface = await client.query(queryConfig)
     
         return queryResult.rows[0]   
     } else{
@@ -32,7 +31,7 @@ const createProjectService = async (payload: any) => {
             values: Object.values(payload),
         }
 
-        const queryResult: ProjectResult = await client.query(queryConfig)
+        const queryResult: ProjectResultInterface = await client.query(queryConfig)
 
         return queryResult.rows[0]
     }
@@ -55,8 +54,8 @@ const getProjectService = async (payload: any) =>  {
         text: queryString,
         values: [params.id]
     } 
-    const queryResult: DeveloperAndProjectResult = await client.query(queryConfig)
-    const selectedProject: DeveloperAndProject = queryResult.rows[0]
+    const queryResult: DeveloperAndProjectResultInterface = await client.query(queryConfig)
+    const selectedProject: DeveloperAndProjectInterface = queryResult.rows[0]
     return selectedProject
 }
 
@@ -84,8 +83,8 @@ const updateProjectService = async (payload: any) => {
         values: [params.id]
     }
     
-    const queryResult: ProjectResult = await client.query(queryConfig)
-    const updatedProject: Project = queryResult.rows[0]
+    const queryResult: ProjectResultInterface = await client.query(queryConfig)
+    const updatedProject: ProjectInterface = queryResult.rows[0]
     return updatedProject
 }
 

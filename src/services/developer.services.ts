@@ -1,11 +1,5 @@
 import { QueryConfig } from "pg"
 import { client } from "../database"
-// import { 
-//     Developer, DeveloperResult, DeveloperInformation, DeveloperInformationResult,
-//     DeveloperAndInformation, DeveloperAndInformationCreate, DeveloperAndInformationResult,
-//     Project, ProjectCreate, ProjectResult, DeveloperAndProject, DeveloperAndProjectCreate,
-//     DeveloperAndProjectResult
-// } from "../interfaces/interfaces"
 import { 
         DeveloperInterface, DeveloperCreateInterface, DeveloperResultInterface,
         DeveloperInformationInterface, DeveloperInformationCreateInterface, DeveloperInformationResultInterface,

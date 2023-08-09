@@ -3,8 +3,11 @@ import { createDeveloperService, updateDeveloperService, deleteDeveloperService,
     createDeveloperInfoService, getDeveloperService 
 } from "../services/developer.services" 
 import { createProjectService, getProjectService, updateProjectService } from "../services/projects.services"
-import { ProjectCreate } from "../interfaces/interfaces"
 import { DeveloperCreateInterface } from "../interfaces/developer.interfaces"
+import { 
+    ProjectInterface, ProjectCreateInterface, ProjectResultInterface,
+    DeveloperAndProjectInterface, DeveloperAndProjectCreateInterface, DeveloperAndProjectResultInterface 
+} from "../interfaces/projects.interfaces"
 
 const insertDeveloper = async (req: Request, res: Response): Promise<Response> => {
     const payload:DeveloperCreateInterface = req.body
@@ -47,7 +50,7 @@ const getDeveloper = async (req: Request, res: Response): Promise<Response> => {
 }
 
 const insertProject = async (req: Request, res: Response): Promise<Response> => {
-    const payload:ProjectCreate = req.body
+    const payload:ProjectCreateInterface = req.body
     
     const project = await createProjectService(payload)
 
