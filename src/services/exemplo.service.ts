@@ -11,14 +11,14 @@ import format from "pg-format"
 const exemplo1Service = async (payload: any) => {
     
     const queryString: string = `
-        INSERT INTO developers (name, email)
+        INSERT INTO developers ("name", "email")
         VALUES ($1, $2)
         RETURNING *;
     `
 
     const queryConfig: QueryConfig = {
         text: queryString,
-        values: Object.values(payload),
+        values: [payload.name, payload.email],
     }
 
     const queryResult: DeveloperResult = await client.query(queryConfig)
