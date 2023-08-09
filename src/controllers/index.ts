@@ -3,10 +3,11 @@ import { createDeveloperService, updateDeveloperService, deleteDeveloperService,
     createDeveloperInfoService, getDeveloperService 
 } from "../services/developer.services" 
 import { createProjectService, getProjectService, updateProjectService } from "../services/projects.services"
-import { DeveloperCreate, DeveloperInformationCreate, ProjectCreate } from "../interfaces/interfaces"
+import { ProjectCreate } from "../interfaces/interfaces"
+import { DeveloperCreateInterface } from "../interfaces/developer.interfaces"
 
 const insertDeveloper = async (req: Request, res: Response): Promise<Response> => {
-    const payload:DeveloperCreate = req.body
+    const payload:DeveloperCreateInterface = req.body
     
     const developer = await createDeveloperService(payload)
 

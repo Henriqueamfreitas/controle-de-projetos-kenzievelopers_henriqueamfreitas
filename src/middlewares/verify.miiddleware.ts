@@ -1,12 +1,15 @@
 import { NextFunction, Request, Response, request } from "express"
 import { QueryConfig } from "pg"
-import { 
-        Developer, DeveloperCreate, DeveloperResult, DeveloperInformation, DeveloperInformationCreate, 
-        DeveloperInformationResult, ProjectResult, Project 
-} from "../interfaces/interfaces"
+import { ProjectResult, Project } from "../interfaces/interfaces"
 import { client } from "../database"
 import { AppError } from "../errors/error"
 import format from "pg-format";
+import { 
+        DeveloperInterface, DeveloperCreateInterface, DeveloperResultInterface,
+        DeveloperInformationInterface, DeveloperInformationCreateInterface, DeveloperInformationResultInterface,
+        DeveloperAndInformationInterface, DeveloperAndInformationCreateInterface, 
+        DeveloperAndInformationResultInterface 
+} from "../interfaces/developer.interfaces"
 
 const ensureNoDuplicatesMiddleWare = async (
     req: Request, res: Response, next: NextFunction): Promise<Response | void>  => {
@@ -18,8 +21,8 @@ const ensureNoDuplicatesMiddleWare = async (
         text: queryString,
     }
     
-    const queryResult: DeveloperResult = await client.query(queryConfig)
-    const developers: Developer[] = queryResult.rows
+    const queryResult: DeveloperResultInterface = await client.query(queryConfig)
+    const developers: DeveloperInterface[] = queryResult.rows
 
     const devsWithSameEmail: number= developers.findIndex(element => element.email === req.body.email)
 
@@ -43,8 +46,8 @@ const ensureIdExistsMiddleWare = async (
         text: queryString,
     }
     
-    const queryResult: DeveloperResult = await client.query(queryConfig)
-    const developers: Developer[] = queryResult.rows
+    const queryResult: DeveloperResultInterface = await client.query(queryConfig)
+    const developers: DeveloperInterface[] = queryResult.rows
 
     const thisIdExists: number= developers.findIndex(element => element.id === Number(id))
 
@@ -68,8 +71,8 @@ const ensureNoInformationDuplicates = async (
         text: queryString,
     }
     
-    const queryResult: DeveloperInformationResult = await client.query(queryConfig)
-    const devInformations: DeveloperInformation[] = queryResult.rows
+    const queryResult: DeveloperInformationResultInterface = await client.query(queryConfig)
+    const devInformations: DeveloperInformationInterface[] = queryResult.rows
 
     const thisIdExists: number= devInformations.findIndex(element => element.developerId === Number(id))
 
@@ -104,8 +107,8 @@ const ensureDeveloperIdExistsMiddleWare = async (
         text: queryString,
     }
     
-    const queryResult: DeveloperResult = await client.query(queryConfig)
-    const developers: Developer[] = queryResult.rows
+    const queryResult: DeveloperResultInterface = await client.query(queryConfig)
+    const developers: DeveloperInterface[] = queryResult.rows
 
     const thisIdExists: number = developers.findIndex(element => element.id === Number(id))
 

@@ -1,11 +1,16 @@
 import { QueryConfig } from "pg"
 import { client } from "../database"
+// import { 
+//     Developer, DeveloperResult, DeveloperInformation, DeveloperInformationResult,
+//     DeveloperAndInformation, DeveloperAndInformationCreate, DeveloperAndInformationResult,
+//     Project, ProjectCreate, ProjectResult, DeveloperAndProject, DeveloperAndProjectCreate,
+//     DeveloperAndProjectResult
+// } from "../interfaces/interfaces"
 import { 
-    Developer, DeveloperResult, DeveloperInformation, DeveloperInformationResult,
-    DeveloperAndInformation, DeveloperAndInformationCreate, DeveloperAndInformationResult,
-    Project, ProjectCreate, ProjectResult, DeveloperAndProject, DeveloperAndProjectCreate,
-    DeveloperAndProjectResult
-} from "../interfaces/interfaces"
+        DeveloperInterface, DeveloperCreateInterface, DeveloperResultInterface,
+        DeveloperInformationInterface, DeveloperInformationCreateInterface, DeveloperInformationResultInterface,
+        DeveloperAndInformationInterface, DeveloperAndInformationResultInterface 
+} from "../interfaces/developer.interfaces"
 import format from "pg-format"
 
 const createDeveloperService = async (payload: any) => {
@@ -21,7 +26,7 @@ const createDeveloperService = async (payload: any) => {
         values: [payload.name, payload.email],
     }
 
-    const queryResult: DeveloperResult = await client.query(queryConfig)
+    const queryResult: DeveloperResultInterface = await client.query(queryConfig)
 
     return queryResult.rows[0]
 }
@@ -50,8 +55,8 @@ const updateDeveloperService = async (payload: any) => {
             values: [params.id]
         }
         
-        const queryResult: DeveloperResult = await client.query(queryConfig)
-        const updatedDeveloper: Developer = queryResult.rows[0]
+        const queryResult: DeveloperResultInterface = await client.query(queryConfig)
+        const updatedDeveloper: DeveloperInterface = queryResult.rows[0]
         return updatedDeveloper
 }
 
@@ -85,7 +90,7 @@ const createDeveloperInfoService = async (payload: any) =>  {
         values: Object.values(body),
     }
 
-    const queryResult: DeveloperInformationResult = await client.query(queryConfig)
+    const queryResult: DeveloperInformationResultInterface = await client.query(queryConfig)
 
     return queryResult.rows[0]
 }
@@ -106,8 +111,8 @@ const getDeveloperService = async (payload: any) =>  {
         text: queryString,
         values: [params.id]
     } 
-    const queryResult: DeveloperAndInformationResult = await client.query(queryConfig)
-    const selectedDeveloper: DeveloperAndInformation = queryResult.rows[0]
+    const queryResult: DeveloperAndInformationResultInterface = await client.query(queryConfig)
+    const selectedDeveloper: DeveloperAndInformationInterface = queryResult.rows[0]
     return selectedDeveloper
 }
 
