@@ -61,7 +61,6 @@
     JOIN projects p
     ON p."developerId" = d.id;
 
-
 -- Before the final commit, drop the tables and then create them again (Its necessary to mantain the order below)
     DROP TABLE developerInfos;
     DROP TABLE projects;

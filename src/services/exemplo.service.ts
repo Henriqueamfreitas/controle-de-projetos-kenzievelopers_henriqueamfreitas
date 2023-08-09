@@ -165,7 +165,36 @@ const exemplo7Service = async (payload: any) =>  {
     return selectedProject
 }
 
+const exemplo8Service = async (payload: any) => {
+    const { body, params } = payload
+
+    const updateColumns:string[] = Object.keys(body)
+    const updateValues:string[] = Object.values(body)
+
+    const queryTemplate: string = `
+        UPDATE "projects"
+        SET (%I) = ROW (%L)
+        WHERE id = $1
+        RETURNING *;
+    `
+
+    const queryFormat: string = format(
+        queryTemplate,
+        updateColumns,
+        updateValues
+    )
+
+    const queryConfig: QueryConfig = {
+        text: queryFormat,
+        values: [params.id]
+    }
+    
+    const queryResult: ProjectResult = await client.query(queryConfig)
+    const updatedProject: Project = queryResult.rows[0]
+    return updatedProject
+}
+
 export { 
         exemplo1Service, exemplo2Service, exemplo3Service, exemplo4Service, exemplo5Service,
-        exemplo6Service, exemplo7Service 
+        exemplo6Service, exemplo7Service, exemplo8Service 
 }

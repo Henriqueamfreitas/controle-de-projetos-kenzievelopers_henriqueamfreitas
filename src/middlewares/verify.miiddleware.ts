@@ -1,6 +1,9 @@
 import { NextFunction, Request, Response, request } from "express"
 import { QueryConfig } from "pg"
-import { Developer, DeveloperCreate, DeveloperResult, DeveloperInformation, DeveloperInformationCreate, DeveloperInformationResult } from "../interfaces/interfaces"
+import { 
+        Developer, DeveloperCreate, DeveloperResult, DeveloperInformation, DeveloperInformationCreate, 
+        DeveloperInformationResult, ProjectResult, Project 
+} from "../interfaces/interfaces"
 import { client } from "../database"
 import { AppError } from "../errors/error"
 import format from "pg-format";
@@ -115,8 +118,32 @@ const ensureDeveloperIdExistsMiddleWare = async (
     return next()
 }
 
+const ensureProjectIdExistsMiddleWare = async (
+    req: Request, res: Response, next: NextFunction): Promise<Response | void>  => {
+    const id: string = req.params.id
+    const queryString: string = `
+        SELECT * FROM projects;
+    `
+    
+    const queryConfig: QueryConfig = {
+        text: queryString,
+    }
+    
+    const queryResult: ProjectResult = await client.query(queryConfig)
+    const projects: Project[] = queryResult.rows
+
+    const thisIdExists: number = projects.findIndex(element => element.id === Number(id))
+
+    if((thisIdExists === -1) && (projects.length>0)){
+        throw new AppError("Project not found.", 404)
+    }
+
+    res.locals.thisIdExists = thisIdExists
+
+    return next()
+}
 
 export { 
         ensureNoDuplicatesMiddleWare, ensureIdExistsMiddleWare, ensureNoInformationDuplicates, 
-        ensureValidOs, ensureDeveloperIdExistsMiddleWare 
+        ensureValidOs, ensureDeveloperIdExistsMiddleWare, ensureProjectIdExistsMiddleWare 
 }

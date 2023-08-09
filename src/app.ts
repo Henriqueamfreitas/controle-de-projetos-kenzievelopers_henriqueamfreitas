@@ -3,14 +3,14 @@ import "dotenv/config";
 import { error } from "./middlewares/handle.middleware";
 import { 
         exemploRouter1, exemploRouter2, exemploRouter3, exemploRouter4, exemploRouter5,
-        exemploRouter6, exemploRouter7 
+        exemploRouter6, exemploRouter7, exemploRouter8 
 } from "./routers";
 
 const app: Application = express();
 app.use(json())
 
 app.use('/developers', exemploRouter1, exemploRouter2, exemploRouter3, exemploRouter4, exemploRouter5)
-app.use('/projects', exemploRouter6, exemploRouter7)
+app.use('/projects', exemploRouter6, exemploRouter7, exemploRouter8)
 
 app.use(error)
 
