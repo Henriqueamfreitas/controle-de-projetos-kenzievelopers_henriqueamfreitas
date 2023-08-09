@@ -1,8 +1,7 @@
 import { QueryConfig } from "pg"
 import { client } from "../database"
 import { 
-        DeveloperInterface, DeveloperCreateInterface, DeveloperResultInterface,
-        DeveloperInformationInterface, DeveloperInformationCreateInterface, DeveloperInformationResultInterface,
+        DeveloperInterface, DeveloperResultInterface, DeveloperInformationResultInterface,
         DeveloperAndInformationInterface, DeveloperAndInformationResultInterface 
 } from "../interfaces/developer.interfaces"
 import format from "pg-format"

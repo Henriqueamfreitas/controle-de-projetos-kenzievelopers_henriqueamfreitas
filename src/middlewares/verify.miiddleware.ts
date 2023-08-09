@@ -1,18 +1,10 @@
-import { NextFunction, Request, Response, request } from "express"
+import { NextFunction, Request, Response } from "express"
 import { QueryConfig } from "pg"
 import { client } from "../database"
 import { AppError } from "../errors/error"
-import format from "pg-format";
-import { 
-        DeveloperInterface, DeveloperCreateInterface, DeveloperResultInterface,
-        DeveloperInformationInterface, DeveloperInformationCreateInterface, DeveloperInformationResultInterface,
-        DeveloperAndInformationInterface, DeveloperAndInformationCreateInterface, 
-        DeveloperAndInformationResultInterface 
-} from "../interfaces/developer.interfaces"
-import { 
-        ProjectInterface, ProjectCreateInterface, ProjectResultInterface,
-        DeveloperAndProjectInterface, DeveloperAndProjectCreateInterface, DeveloperAndProjectResultInterface 
-} from "../interfaces/projects.interfaces";
+import { DeveloperInterface, DeveloperResultInterface, DeveloperInformationInterface, 
+DeveloperInformationResultInterface } from "../interfaces/developer.interfaces"
+import { ProjectInterface, ProjectResultInterface } from "../interfaces/projects.interfaces";
 
 const ensureNoDuplicatesMiddleWare = async (
     req: Request, res: Response, next: NextFunction): Promise<Response | void>  => {

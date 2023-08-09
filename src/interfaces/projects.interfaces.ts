@@ -1,4 +1,4 @@
-import { Query, QueryResult } from "pg"
+import { QueryResult } from "pg"
 
 interface ProjectInterface{
     id: number,

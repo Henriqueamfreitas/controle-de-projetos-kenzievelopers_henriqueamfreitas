@@ -1,9 +1,8 @@
 import { QueryConfig } from "pg"
 import { client } from "../database"
 import format from "pg-format"
-import { ProjectInterface, ProjectCreateInterface, ProjectResultInterface,
-    DeveloperAndProjectInterface, DeveloperAndProjectCreateInterface, DeveloperAndProjectResultInterface 
-} from "../interfaces/projects.interfaces"
+import { ProjectInterface, ProjectResultInterface, DeveloperAndProjectInterface, 
+DeveloperAndProjectResultInterface } from "../interfaces/projects.interfaces"
 
 const createProjectService = async (payload: any) => {
     if(payload.endDate === undefined){

@@ -2,12 +2,7 @@ import { Request, Response } from "express"
 import { createDeveloperService, updateDeveloperService, deleteDeveloperService, 
     createDeveloperInfoService, getDeveloperService 
 } from "../services/developer.services" 
-import { createProjectService, getProjectService, updateProjectService } from "../services/projects.services"
 import { DeveloperCreateInterface } from "../interfaces/developer.interfaces"
-import { 
-    ProjectInterface, ProjectCreateInterface, ProjectResultInterface,
-    DeveloperAndProjectInterface, DeveloperAndProjectCreateInterface, DeveloperAndProjectResultInterface 
-} from "../interfaces/projects.interfaces"
 
 const createDeveloperController = async (req: Request, res: Response): Promise<Response> => {
     const payload:DeveloperCreateInterface = req.body
