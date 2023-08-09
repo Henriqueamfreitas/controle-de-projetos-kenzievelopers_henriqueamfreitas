@@ -5,6 +5,7 @@ import {
         DeveloperAndInformationInterface, DeveloperAndInformationResultInterface 
 } from "../interfaces/developer.interfaces"
 import format from "pg-format"
+import { AppError } from "../errors/error"
 
 const createDeveloperService = async (payload: any) => {
   
@@ -66,7 +67,7 @@ const deleteDeveloperService = async (payload: any) =>  {
         values: [params.id]
     } 
 
-    await client.query(queryConfig)
+    const result = await client.query(queryConfig);
 }
 
 const createDeveloperInfoService = async (payload: any) =>  {

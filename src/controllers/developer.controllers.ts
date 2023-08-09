@@ -3,6 +3,8 @@ import { createDeveloperService, updateDeveloperService, deleteDeveloperService,
     createDeveloperInfoService, getDeveloperService 
 } from "../services/developer.services" 
 import { DeveloperCreateInterface } from "../interfaces/developer.interfaces"
+import { AppError } from "../errors/error"
+import { error } from "../middlewares/handle.middleware"
 
 const createDeveloperController = async (req: Request, res: Response): Promise<Response> => {
     const payload:DeveloperCreateInterface = req.body
