@@ -99,7 +99,7 @@ const exemplo5Service = async (payload: any) =>  {
     FROM developers d
     LEFT JOIN developerInfos dI
     ON dI."developerId" = d.id
-    WHERE "developerId"=$1;
+    WHERE d.id=$1;
     `
 
     const queryConfig: QueryConfig = {
