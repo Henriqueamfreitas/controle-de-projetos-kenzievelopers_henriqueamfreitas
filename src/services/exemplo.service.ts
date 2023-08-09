@@ -9,7 +9,7 @@ import {
 import format from "pg-format"
 
 const exemplo1Service = async (payload: any) => {
-    
+  
     const queryString: string = `
         INSERT INTO developers ("name", "email")
         VALUES ($1, $2)
