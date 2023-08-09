@@ -90,4 +90,33 @@ const ensureValidOs = async (
     return next()
 }
 
-export { ensureNoDuplicatesMiddleWare, ensureIdExistsMiddleWare, ensureNoInformationDuplicates, ensureValidOs }
+const ensureDeveloperIdExistsMiddleWare = async (
+    req: Request, res: Response, next: NextFunction): Promise<Response | void>  => {
+    const id: string = req.body.developerId
+    const queryString: string = `
+        SELECT * FROM developers;
+    `
+    
+    const queryConfig: QueryConfig = {
+        text: queryString,
+    }
+    
+    const queryResult: DeveloperResult = await client.query(queryConfig)
+    const developers: Developer[] = queryResult.rows
+
+    const thisIdExists: number = developers.findIndex(element => element.id === Number(id))
+
+    if((thisIdExists === -1) && (developers.length>0)){
+        throw new AppError("Developer not found.", 404)
+    }
+
+    res.locals.thisIdExists = thisIdExists
+
+    return next()
+}
+
+
+export { 
+        ensureNoDuplicatesMiddleWare, ensureIdExistsMiddleWare, ensureNoInformationDuplicates, 
+        ensureValidOs, ensureDeveloperIdExistsMiddleWare 
+}

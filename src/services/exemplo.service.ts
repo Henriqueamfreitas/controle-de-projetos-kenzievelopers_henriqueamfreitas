@@ -105,7 +105,6 @@ const exemplo5Service = async (payload: any) =>  {
         text: queryString,
         values: [params.id]
     } 
-
     const queryResult: DeveloperAndInformationResult = await client.query(queryConfig)
     const selectedDeveloper: DeveloperAndInformation = queryResult.rows[0]
     return selectedDeveloper
@@ -142,6 +141,7 @@ const exemplo6Service = async (payload: any) => {
         return queryResult.rows[0]
     }
 }
+
 
 export { 
         exemplo1Service, exemplo2Service, exemplo3Service, exemplo4Service, exemplo5Service,
