@@ -6,7 +6,7 @@ import {
 } from "../middlewares/verify.miiddleware";
 import { 
         insertDeveloper, updatedDeveloper, deleteDeveloper, insertDeveloperInformation, getDeveloper,
-        insertProject 
+        insertProject, getProject 
 } from "../controllers/index"
 
 const exemploRouter1: Router = Router()
@@ -25,7 +25,7 @@ exemploRouter4.post('/:id/infos', ensureValidOs, ensureIdExistsMiddleWare, ensur
 exemploRouter5.get('/:id', ensureIdExistsMiddleWare, getDeveloper)
 
 exemploRouter6.post('/', ensureDeveloperIdExistsMiddleWare, insertProject)
-exemploRouter7.get('/:id')
+exemploRouter7.get('/:id', ensureDeveloperIdExistsMiddleWare, getProject)
 
 
 export { 

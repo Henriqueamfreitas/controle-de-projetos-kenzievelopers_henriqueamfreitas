@@ -52,7 +52,15 @@
 
     SELECT * FROM developers d
     JOIN projects p
-    ON p.developerId = d.id;
+    ON p."developerId" = d.id;
+
+    SELECT p.id "projectId", p.name "projectName", p.description "projectDescription", 
+    p.repository "projectRepository", p."startDate" "projectStartDate", p."endDate" "projectEndDate",
+    d.name "projectDeveloperName" 
+    FROM developers d
+    JOIN projects p
+    ON p."developerId" = d.id;
+
 
 -- Before the final commit, drop the tables and then create them again (Its necessary to mantain the order below)
     DROP TABLE developerInfos;

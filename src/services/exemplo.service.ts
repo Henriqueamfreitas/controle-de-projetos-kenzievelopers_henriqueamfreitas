@@ -3,7 +3,8 @@ import { client } from "../database"
 import { 
     Developer, DeveloperResult, DeveloperInformation, DeveloperInformationResult,
     DeveloperAndInformation, DeveloperAndInformationCreate, DeveloperAndInformationResult,
-    Project, ProjectCreate, ProjectResult 
+    Project, ProjectCreate, ProjectResult, DeveloperAndProject, DeveloperAndProjectCreate,
+    DeveloperAndProjectResult
 } from "../interfaces/interfaces"
 import format from "pg-format"
 
@@ -142,8 +143,29 @@ const exemplo6Service = async (payload: any) => {
     }
 }
 
+const exemplo7Service = async (payload: any) =>  {    
+    const { params } = payload
+
+    const queryString: string = `
+    SELECT p.id "projectId", p.name "projectName", p.description "projectDescription", 
+    p.repository "projectRepository", p."startDate" "projectStartDate", p."endDate" "projectEndDate",
+    d.name "projectDeveloperName" 
+    FROM developers d
+    JOIN projects p
+    ON p."developerId" = d.id
+    WHERE p.id=$1;
+    `
+
+    const queryConfig: QueryConfig = {
+        text: queryString,
+        values: [params.id]
+    } 
+    const queryResult: DeveloperAndProjectResult = await client.query(queryConfig)
+    const selectedProject: DeveloperAndProject = queryResult.rows[0]
+    return selectedProject
+}
 
 export { 
         exemplo1Service, exemplo2Service, exemplo3Service, exemplo4Service, exemplo5Service,
-        exemplo6Service 
+        exemplo6Service, exemplo7Service 
 }

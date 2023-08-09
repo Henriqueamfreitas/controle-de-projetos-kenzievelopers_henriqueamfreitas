@@ -1,7 +1,7 @@
 import { Request, Response } from "express"
 import { 
         exemplo1Service, exemplo2Service, exemplo3Service, exemplo4Service, exemplo5Service,
-        exemplo6Service 
+        exemplo6Service, exemplo7Service 
 } from "../services/exemplo.service"
 import { DeveloperCreate, DeveloperInformationCreate, ProjectCreate } from "../interfaces/interfaces"
 
@@ -53,8 +53,15 @@ const insertProject = async (req: Request, res: Response): Promise<Response> => 
     return res.status(201).json(project)
 }
 
+const getProject = async (req: Request, res: Response): Promise<Response> => {
+    const payload:Request = req
+    
+    const selectedProject = await exemplo7Service(payload)
+    
+    return res.status(200).json(selectedProject)
+}
 
 export { 
         insertDeveloper, updatedDeveloper, deleteDeveloper, insertDeveloperInformation, getDeveloper,
-        insertProject 
+        insertProject, getProject 
 }
