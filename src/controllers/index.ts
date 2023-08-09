@@ -1,14 +1,14 @@
 import { Request, Response } from "express"
-import { 
-        exemplo1Service, exemplo2Service, exemplo3Service, exemplo4Service, exemplo5Service,
-        exemplo6Service, exemplo7Service, exemplo8Service 
-} from "../services/exemplo.service"
+import { createDeveloperService, updateDeveloperService, deleteDeveloperService, 
+    createDeveloperInfoService, getDeveloperService 
+} from "../services/developer.services" 
+import { createProjectService, getProjectService, updateProjectService } from "../services/projects.services"
 import { DeveloperCreate, DeveloperInformationCreate, ProjectCreate } from "../interfaces/interfaces"
 
 const insertDeveloper = async (req: Request, res: Response): Promise<Response> => {
     const payload:DeveloperCreate = req.body
     
-    const developer = await exemplo1Service(payload)
+    const developer = await createDeveloperService(payload)
 
     return res.status(201).json(developer)
 }
@@ -16,7 +16,7 @@ const insertDeveloper = async (req: Request, res: Response): Promise<Response> =
 const updatedDeveloper = async (req: Request, res: Response): Promise<Response> => {
     const payload:Request = req
     
-    const updatedDeveloper = await exemplo2Service(payload)
+    const updatedDeveloper = await updateDeveloperService(payload)
     
     return res.status(200).json(updatedDeveloper)
 }
@@ -24,7 +24,7 @@ const updatedDeveloper = async (req: Request, res: Response): Promise<Response> 
 const deleteDeveloper = async (req: Request, res: Response): Promise<Response> => {
     const payload:Request = req
     
-    await exemplo3Service(payload)
+    await deleteDeveloperService(payload)
     
     return res.status(404).send()
 }
@@ -32,7 +32,7 @@ const deleteDeveloper = async (req: Request, res: Response): Promise<Response> =
 const insertDeveloperInformation = async (req: Request, res: Response): Promise<Response> => {
     const payload:Request = req
     
-    const developerInformation = await exemplo4Service(payload)
+    const developerInformation = await createDeveloperInfoService(payload)
 
     return res.status(201).json(developerInformation)
 }
@@ -40,7 +40,7 @@ const insertDeveloperInformation = async (req: Request, res: Response): Promise<
 const getDeveloper = async (req: Request, res: Response): Promise<Response> => {
     const payload:Request = req
     
-    const selectedDeveloper = await exemplo5Service(payload)
+    const selectedDeveloper = await getDeveloperService(payload)
     
     return res.status(200).json(selectedDeveloper)
 }
@@ -48,7 +48,7 @@ const getDeveloper = async (req: Request, res: Response): Promise<Response> => {
 const insertProject = async (req: Request, res: Response): Promise<Response> => {
     const payload:ProjectCreate = req.body
     
-    const project = await exemplo6Service(payload)
+    const project = await createProjectService(payload)
 
     return res.status(201).json(project)
 }
@@ -56,7 +56,7 @@ const insertProject = async (req: Request, res: Response): Promise<Response> => 
 const getProject = async (req: Request, res: Response): Promise<Response> => {
     const payload:Request = req
     
-    const selectedProject = await exemplo7Service(payload)
+    const selectedProject = await getProjectService(payload)
     
     return res.status(200).json(selectedProject)
 }
@@ -64,7 +64,7 @@ const getProject = async (req: Request, res: Response): Promise<Response> => {
 const updatedProject = async (req: Request, res: Response): Promise<Response> => {
     const payload:Request = req
     
-    const updatedProject = await exemplo8Service(payload)
+    const updatedProject = await updateProjectService(payload)
     
     return res.status(200).json(updatedProject)
 }
