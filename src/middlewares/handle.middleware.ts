@@ -2,6 +2,7 @@ import 'express-async-errors';
 import { NextFunction, Request, Response } from "express";
 import { AppError } from "../errors/error";
 
+
 const error = (
     err: Error,
     req: Request,

@@ -74,14 +74,13 @@ const createDeveloperInfoService = async (payload: any) =>  {
     const { body, params } = payload
 
     const queryString: string = `
-    INSERT INTO developerInfos ("developerSince", "preferredOS", "developerId")
-    VALUES ($1, $2, ${params.id})
+    INSERT INTO "developerInfos" ("developerSince", "preferredOS", "developerId")
+    VALUES ($1, $2, $3)
     RETURNING *;
     `
-
     const queryConfig: QueryConfig = {
         text: queryString,
-        values: Object.values(body),
+        values: [body.developerSince, body.preferredOS, params.id],
     }
 
     const queryResult: DeveloperInformationResultInterface = await client.query(queryConfig)
@@ -96,7 +95,7 @@ const getDeveloperService = async (payload: any) =>  {
     SELECT d.id "developerId", d.name "developerName", d.email "developerEmail", 
     dI."developerSince" "developerInfoDeveloperSince", dI."preferredOS" "developerInfoPreferredOS"
     FROM developers d
-    LEFT JOIN developerInfos dI
+    LEFT JOIN "developerInfos" dI
     ON dI."developerId" = d.id
     WHERE d.id=$1;
     `

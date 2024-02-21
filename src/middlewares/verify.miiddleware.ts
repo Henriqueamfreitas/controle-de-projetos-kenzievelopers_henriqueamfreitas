@@ -46,7 +46,7 @@ const ensureIdExistsMiddleWare = async (
 
     const thisIdExists: number= developers.findIndex(element => element.id === Number(id))
 
-    if((thisIdExists === -1) && (developers.length>0)){
+    if((thisIdExists === -1)){
         throw new AppError("Developer not found.", 404)
     }
 
@@ -59,7 +59,7 @@ const ensureNoInformationDuplicates = async (
     req: Request, res: Response, next: NextFunction): Promise<Response | void>  => {
     const id: string = req.params.id
     const queryString: string = `
-        SELECT * FROM developerInfos;
+        SELECT * FROM "developerInfos";
     `
     
     const queryConfig: QueryConfig = {
@@ -85,7 +85,7 @@ const ensureValidOs = async (
     const preferredOS: string = req.body.preferredOS
 
     if(preferredOS !== 'MacOS' && preferredOS !== 'Windows' && preferredOS !== 'Linux'){
-        throw new AppError("Invalid OS option.", 400)
+        throw new AppError("Invalid OS option.", 404)
     }
 
     return next()

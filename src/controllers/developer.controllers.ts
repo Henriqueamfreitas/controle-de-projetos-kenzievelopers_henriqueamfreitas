@@ -27,7 +27,7 @@ const deleteDeveloperController = async (req: Request, res: Response): Promise<R
     
     await deleteDeveloperService(payload)
     
-    return res.status(404).send()
+    return res.status(204).send()
 }
 
 const insertDeveloperInfoController = async (req: Request, res: Response): Promise<Response> => {
