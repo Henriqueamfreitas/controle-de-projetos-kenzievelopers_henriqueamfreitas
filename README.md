@@ -674,3 +674,5 @@ A entrega deve seguir as seguintes regras:
       "message": "Developer not found."
     }
     ```
+
+**Tecnologias**: Typescript, Insomnia, Sql, express, node
